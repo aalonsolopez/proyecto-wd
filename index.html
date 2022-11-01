@@ -17,7 +17,7 @@
 
     body {
       background-image: url('assets/stars.jpg');
-
+      overflow: hidden;
     }
 
     * {
@@ -40,7 +40,7 @@
       font-weight: bold;
     }
 
-    #upper-ufo {
+    #right-ufo {
       position: absolute;
       top: 20%;
       left: 70%;
@@ -57,6 +57,7 @@
       -webkit-animation-name: missile-travel;
       -webkit-animation-duration: 5s;
       -webkit-animation-iteration-count: infinite;
+      -webkit-animation-no: ;
     }
 
     @-webkit-keyframes float {
@@ -75,15 +76,11 @@
 
     @-webkit-keyframes missile-travel {
       from {
-        left: -10%;
-      }
-
-      50% {
-        left: 50%;
+        left: -40%;
       }
 
       to {
-        left: 110%;
+        left: 130%;
       }
     }
   </style>
@@ -119,7 +116,7 @@
       </ul>
     </div>
   </nav>
-  <img src="./assets/ufoNavIcon.png" alt="UFO" width="200" height="200" id="upper-ufo">
+  <img src="./assets/ufoNavIcon.png" alt="UFO" width="200" height="200" id="right-ufo">
   <div id="game-main-screen">
     <h1 id="ms-title">UFO Game</h1>
     <p>UFO Game is a game where you have to shoot down UFOs. The game is made with HTML, CSS, JavaScript and 💚 in ETSISI.</p>
