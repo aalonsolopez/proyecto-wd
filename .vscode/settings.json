@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "proyecto-wd"
+    "liveServer.settings.multiRootWorkspaceName": "proyecto-wd",
+    "editor.linkedEditing": true
 }
