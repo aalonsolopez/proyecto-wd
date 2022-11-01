@@ -2,6 +2,13 @@
     font-family: 'Orbitron';
     src: url('../fonts/Orbitron-Regular.ttf') format('truetype');
 }
-* {
-    
+
+#logreg {
+    justify-content: right;
+}
+
+#portrait-title {
+    justify-content: center;
+    text-transform: uppercase;
+    text-decoration: wavy;
 }
