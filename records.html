@@ -5,8 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="assets/ufoNavIcon.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
     <title>Records - UFO Game</title>
     <style>
       @font-face {
@@ -24,7 +28,7 @@
         font-family: "Orbitron", sans-serif;
       }
 
-    #records-title {
+      #records-title {
         position: absolute;
         top: 20%;
         left: 50%;
@@ -32,9 +36,9 @@
         font-size: 100px;
         font-weight: bold;
         color: yellow;
-    }
+      }
 
-    #records-table {
+      #records-table {
         position: absolute;
         top: 40%;
         left: 50%;
@@ -44,16 +48,56 @@
         border: 1px solid yellow;
         width: fit-content;
         margin-top: 30px;
-    }
+      }
 
       nav #logreg {
-      position: absolute;
-      right: 0;
-      text-align: center;
-    }
+        position: absolute;
+        right: 0;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
+    <script>
+      window.onload = function () {
+        renderTable();
+      };
+
+      function convertDate(date) {
+        var date = new Date(date);
+        return date.toLocaleString();
+      }
+
+      function renderTable() {
+        var table = document.getElementById("records-table");
+        var tableBody = document.createElement("tbody");
+
+        table.appendChild(tableBody);
+
+        fetch("http://wd.etsisi.upm.es:10000/records")
+          .then((response) => {
+            response.json();
+          })
+          .then((data) => {
+            let recordPossition = 1;
+            data.forEach((record) => {
+              var row = document.createElement("tr");
+              row.setAttribute("scope", "row");
+              row.appendChild("th").setAttribute("scope", "row").innerText =
+                recordPossition++;
+              row.appendChild("td").innerText = record.username;
+              row.appendChild("td").innerText = record.punctuation;
+              row.appendChild("td").innerText = record.ufos;
+              row.appendChild("td").innerText = record.disposedTime;
+              row.appendChild("td").innerText = convertDate(record.recordDate);
+              tableBody.appendChild(row);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
@@ -92,35 +136,19 @@
       </div>
     </nav>
 
-    <div id="records-title">
-      Records
-    </div>
+    <div id="records-title">Records</div>
 
     <table class="table" id="records-table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-          </tr>
-        </tbody>
-      </table>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">User</th>
+          <th scope="col">Points</th>
+          <th scope="col">UFOs</th>
+          <th scope="col">Secs.</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+    </table>
   </body>
 </html>
