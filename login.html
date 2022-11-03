@@ -11,29 +11,8 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <title>Records - UFO Game</title>
-    <style>
-      @font-face {
-        font-family: "Orbitron";
-        src: url("assets/fonts/Orbitron-VariableFont_wght.ttf")
-          format("truetype");
-      }
-
-      body {
-        background-image: url("assets/stars.jpg");
-        overflow: hidden;
-      }
-
-      * {
-        font-family: "Orbitron", sans-serif;
-      }
-
-      nav #logreg {
-        position: absolute;
-        right: 0;
-        text-align: center;
-      }
-    </style>
+    <title>Login - UFO Game</title>
+    <link rel="stylesheet" href="login.css" type="text/css"/>
 </head>
 <body>
     <script
@@ -73,5 +52,22 @@
       </ul>
     </div>
   </nav>
+  <div id="login">
+    <h1 id="login-title">Login</h1>
+    <p>
+      Let me know who you are.
+    </p>
+    <p>
+      This will be used to save your records.
+    </p>
+  <div class="form-floating">
+    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+    <label for="floatingInput">Email address</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+    <label for="floatingPassword" class="form-label">Password</label>
+  </div>
+  <button type="button" class="btn btn-primary">Login</button>
 </body>
 </html>

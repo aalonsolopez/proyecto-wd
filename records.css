@@ -1,0 +1,48 @@
+@font-face {
+    font-family: "Orbitron";
+    src: url("assets/fonts/Orbitron-VariableFont_wght.ttf")
+      format("truetype");
+  }
+
+  body {
+    background-image: url("assets/stars.jpg");
+    overflow: hidden;
+  }
+
+  * {
+    font-family: "Orbitron", sans-serif;
+  }
+
+  #records-title {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    font-weight: bold;
+    color: yellow;
+  }
+
+  #records-table {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    color: yellow;
+    border: 1px solid yellow;
+    margin-top: 20px;
+    width: fit-content;
+    min-width: 40%;
+  }
+
+  #table-index {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  nav #logreg {
+    position: absolute;
+    right: 0;
+    text-align: center;
+  }
