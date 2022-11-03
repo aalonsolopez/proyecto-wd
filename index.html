@@ -48,7 +48,7 @@
       }
 
       #ms-title {
-        font-size: 70px;
+        font-size: 100px;
         font-weight: bold;
       }
 
@@ -68,6 +68,22 @@
         animation-iteration-count: infinite;
       }
 
+      #third-ufo {
+        position: absolute;
+        left: 40%;
+        animation-name: float-center-2;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+      }
+
+      #forth-ufo {
+        position: absolute;
+        left: 60%;
+        animation-name: float-center;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+      }
+
       #lower-missile {
         position: absolute;
         top: 70%;
@@ -78,6 +94,34 @@
       }
 
       @keyframes float-right {
+        from {
+          top: 20%;
+        }
+
+        50% {
+          top: 10%;
+        }
+
+        to {
+          top: 20%;
+        }
+      }
+
+      @keyframes float-center {
+        from {
+          top: 60%;
+        }
+
+        50% {
+          top: 70%;
+        }
+
+        to {
+          top: 60%;
+        }
+      }
+
+      @keyframes float-center-2 {
         from {
           top: 20%;
         }
@@ -150,7 +194,7 @@
           </li>
           <li class="d-flex" id="logreg">
             <a class="nav-link active" href="#">👤Register</a>
-            <a class="nav-link active" href="#">👋Login</a>
+            <a class="nav-link active" href="login.html">👋Login</a>
           </li>
         </ul>
       </div>
@@ -165,9 +209,23 @@
     <img
       src="./assets/ufoNavIcon.png"
       alt="UFO"
-      width="200"
-      height="200"
+      width="300"
+      height="300"
       id="left-ufo"
+    />
+    <img
+      src="./assets/ufoNavIcon.png"
+      alt="UFO"
+      width="100"
+      height="100"
+      id="third-ufo"
+    />
+    <img
+      src="./assets/ufoNavIcon.png"
+      alt="UFO"
+      width="50"
+      height="50"
+      id="forth-ufo"
     />
     <div id="game-main-screen">
       <h1 id="ms-title">UFO Game</h1>

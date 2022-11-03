@@ -40,14 +40,20 @@
 
       #records-table {
         position: absolute;
-        top: 40%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 30px;
+        width: 50%;
         color: yellow;
         border: 1px solid yellow;
+        margin-top: 20px;
         width: fit-content;
-        margin-top: 30px;
+        min-width: 40%;
+      }
+
+      #table-index {
+        font-size: 20px;
+        font-weight: bold;
       }
 
       nav #logreg {
@@ -59,43 +65,39 @@
   </head>
   <body>
     <script>
+      /* get from http://wd.etsisi.upm.es:10000/records the data and display it in a table */
+
       window.onload = function () {
-        renderTable();
+        document
+          .getElementById("records-table")
+          .insertAdjacentElement("beforeend", tableFetch());
       };
+
+      function tableFetch() {
+        var tableBody = document.createElement("tbody");
+        fetch("http://wd.etsisi.upm.es:10000/records")
+          .then((response) => response.json())
+          .then((data) => {
+            let i = 1;
+            data.map((record) => {
+              var row = document.createElement("tr");
+              row.setAttribute("scope", "row");
+              row.insertAdjacentHTML("beforeend", `<th>${i++}</th>`);
+              row.insertAdjacentHTML("beforeend", `<td>${record.username}</td>`);
+              row.insertAdjacentHTML("beforeend", `<td>${record.punctuation}</td>`);
+              row.insertAdjacentHTML("beforeend", `<td>${record.ufos}</td>`);
+              row.insertAdjacentHTML("beforeend", `<td>${record.disposedTime}</td>`);
+              row.insertAdjacentHTML("beforeend", `<td>${convertDate(record.recordDate)}</td>`);
+              tableBody.appendChild(row);
+            });
+          });
+
+        return tableBody;
+      }
 
       function convertDate(date) {
         var date = new Date(date);
         return date.toLocaleString();
-      }
-
-      function renderTable() {
-        var table = document.getElementById("records-table");
-        var tableBody = document.createElement("tbody");
-
-        table.appendChild(tableBody);
-
-        fetch("http://wd.etsisi.upm.es:10000/records")
-          .then((response) => {
-            response.json();
-          })
-          .then((data) => {
-            let recordPossition = 1;
-            data.forEach((record) => {
-              var row = document.createElement("tr");
-              row.setAttribute("scope", "row");
-              row.appendChild("th").setAttribute("scope", "row").innerText =
-                recordPossition++;
-              row.appendChild("td").innerText = record.username;
-              row.appendChild("td").innerText = record.punctuation;
-              row.appendChild("td").innerText = record.ufos;
-              row.appendChild("td").innerText = record.disposedTime;
-              row.appendChild("td").innerText = convertDate(record.recordDate);
-              tableBody.appendChild(row);
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
       }
     </script>
     <script
@@ -135,20 +137,20 @@
         </ul>
       </div>
     </nav>
-
-    <div id="records-title">Records</div>
-
-    <table class="table" id="records-table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">User</th>
-          <th scope="col">Points</th>
-          <th scope="col">UFOs</th>
-          <th scope="col">Secs.</th>
-          <th scope="col">Date</th>
-        </tr>
-      </thead>
-    </table>
+    <div id="records">
+      <h1 id="records-title">Records</h1>
+      <table class="table" id="records-table">
+        <thead>
+          <tr id="table-index">
+            <th scope="col">#</th>
+            <th scope="col">User</th>
+            <th scope="col">Points</th>
+            <th scope="col">UFOs</th>
+            <th scope="col">Seconds</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
   </body>
 </html>
