@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="patata.css" rel=“stylesheet” type=“text/css”>
+    <link rel="icon" type="image/x-icon" href="assets/ufoNavIcon.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <link rel="icon" type="image/x-icon" href="assets/ufoNavIcon.png" />
-    <link rel="stylesheet" href="index.css" type="text/css"/>
-    <title>Home - UFO Game</title>
+    <title>Register - UFO Game</title>
+    <link rel="stylesheet" href="register.css" type="text/css" />
   </head>
-
   <body>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
@@ -54,44 +52,37 @@
         </ul>
       </div>
     </nav>
-    <img
-      src="./assets/ufoNavIcon.png"
-      alt="UFO"
-      width="200"
-      height="200"
-      id="right-ufo"
-    />
-    <img
-      src="./assets/ufoNavIcon.png"
-      alt="UFO"
-      width="300"
-      height="300"
-      id="left-ufo"
-    />
-    <img
-      src="./assets/ufoNavIcon.png"
-      alt="UFO"
-      width="100"
-      height="100"
-      id="third-ufo"
-    />
-    <img
-      src="./assets/ufoNavIcon.png"
-      alt="UFO"
-      width="50"
-      height="50"
-      id="forth-ufo"
-    />
-    <div id="game-main-screen">
-      <h1 id="ms-title">UFO Game</h1>
-      <p>
-        UFO Game is a game where you have to shoot down UFOs. The game is made
-        with HTML, CSS, JavaScript and 💚 in ETSISI.
-      </p>
-      <p>Click on the play button to start playing.</p>
-      <a class="btn btn-primary" href="game.html">Play</a>
+    <div id="register">
+      <h1 id="register-title">Register</h1>
+      <p>Fill it with your data to subscribe this game</p>
+      <div class="form-floating">
+        <input
+          type="username"
+          class="form-control"
+          id="username-input"
+          placeholder="username"
+        />
+        <label for="username-input">Username</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="email"
+          class="form-control"
+          id="email-input"
+          placeholder="example@example.com"
+        />
+        <label for="email-input">E-mail</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="password-input"
+          placeholder="Password"
+        />
+        <label for="password-input" class="form-label">Password</label>
+      </div>
+      <button type="button" class="btn btn-primary" id="register-button">Login</button>
     </div>
-    <img src="./assets/missile.png" alt="MISSILE" width="85" height=228"
-    id="lower-missile">
   </body>
 </html>

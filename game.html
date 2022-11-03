@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head><title>First approximation for UFO battle game</title>
+    <style>
+        /**{margin:0; padding: 0}*/
+
+        #missile {
+            position: absolute;
+            bottom: 10px;
+            left: 300px;
+            height: 70px;
+        }
+
+        #ufo {
+            position: absolute;
+            bottom: 375px;
+            left: 0px;
+        }
+
+        #points {
+            position: absolute;
+            bottom: 10px;
+            right: 30px;
+            width: 150px;
+            height: 50px;
+            background-color: blue;
+            color: white;
+            text-align: center;
+            font-size: 18pt;
+            padding-top: 20px
+        }
+    </style>
+</head>
+<body>
+<script type='text/javascript'>
+    var pid, score = 0,
+        themissile, theufo, ufo_hstep = 5,
+        launchedMissile = false;
+
+    function UFOlaunch() {
+        //Supress comment signs in next line
+        setInterval(MoveUFO, 25); //25 milisegundos
+    }
+
+    function MoveUFO() {
+        var Rlimit = window.innerWidth;
+        //Program here UFO movement
+        var hpos_ufo = parseInt(theufo.style.left),
+            width_ufo = parseInt(theufo.style.width);
+        //let ufo_hstep = 5; No se hace aquí si no con una variable global por que si no cada vez que se llame a la función volvería a ser este valor
+
+        if (hpos_ufo + width_ufo + 8 > Rlimit || hpos_ufo < 0) {
+            ufo_hstep = ufo_hstep * (-1); //Cambia el signo para que cambie de dirección cuando llega al borde
+        }
+
+        hpos_ufo = hpos_ufo + ufo_hstep;
+        hpos_ufo = hpos_ufo + 'px';
+        theufo.style.left = hpos_ufo;
+    }
+
+    function pullTrigger() {
+        pid = setInterval(launch, 10);
+    }
+
+    function checkforaHit() {
+        var hpos_ufo = parseInt(theufo.style.left),
+            vpos_ufo = parseInt(theufo.style.bottom),
+            width_ufo = parseInt(theufo.style.width),
+            vpos_m = parseInt(themissile.style.bottom),
+            hpos_m = parseInt(themissile.style.left),
+            width_m = parseInt(themissile.style.width),
+            height_m = parseInt(themissile.style.height),
+            hit = false;
+        // detect here if missile hits ufo
+        hit = (vpos_m + height_m >= vpos_ufo) &&
+            (hpos_m >= hpos_ufo) &&
+            (hpos_m <= hpos_ufo + width_ufo);
+        return hit;
+    }
+
+    function launch() {
+        var uLimit = window.innerHeight,
+            vpos_m,
+            vstep = 5;
+        vpos_m = parseInt(themissile.style.bottom);
+        if (checkforaHit()) {
+            clearInterval(pid);
+            launchedMissile = false;
+            vpos_m = 0;
+            score = score + 100;
+            document.getElementById('points').innerHTML = score;
+            theufo.src='imgs/explosion.gif';
+            setTimeout( () => {theufo.src = 'imgs/ufo.png'}, 10000)
+            //stop the missile
+            //update punctuation in the panel
+            //Show the image for the hit
+        }
+        //if vpos_m is higher than upperlimit
+        //stop the missile
+        // else
+        // do the missile to move vstep pixels up
+        if (vpos_m > uLimit) {
+            clearInterval(pid); //Para que pare de moverse cuando vuelve a la parte de abajo
+            launchedMissile = false;
+            vpos_m = 0;
+        }
+        vpos_m = vpos_m + vstep;
+        vpos_m = vpos_m + 'px';
+        themissile.style.bottom = vpos_m;
+    }
+
+    function moveMissileRight() {
+        var rLimit = window.innerWidth,
+            hpos_m, misWidth, hstep = 5; //hpos_m = posicion horizontal del misil
+        // alert ("hey, I'm working"); //prueba para ver que funciona
+        hpos_m = parseInt(themissile.style.left);
+        misWidth = parseInt(themissile.style.width); //Tienes que asignarle el ancho abajo para que lo pueda pillar aquí
+        if (hpos_m + misWidth + 8 < rLimit) { //8 es el margen que le pone el navegador por defecto y si no lo pones sale scroll horizontal
+            hpos_m = hpos_m + hstep;
+            hpos_m = hpos_m + 'px'; //Concatenar para poner las unidades
+            themissile.style.left = hpos_m;
+        }
+        // let missileLeft = document.getElementById('missile').style.left;
+        //let missileLeft = themissile; // ha sacado lo anterior en una variable global solo para este ejercicio
+        //Convertir en un entero para sumarlo y luego volver a ponerle los pixeles para que encaje (NO ESTÁ COMPLETO)
+        //parseInt(missileLeft);
+        //missileLeft = missileLeft + hstep;
+        // Program here missile right movement
+    }
+
+    function moveMissileLeft() {
+        var hpos_m, hstep = 5;
+        hpos_m = parseInt(themissile.style.left);
+        if (hpos_m > 0) {
+            hpos_m = hpos_m - hstep;
+            hpos_m = hpos_m + 'px';
+            themissile.style.left = hpos_m;
+        }
+    }
+
+    function keyboardController(theEvent) {
+        let interval = 15;
+        let code = theEvent.key; //Coge la tecla que estás pulsando
+        switch (code) {
+            case 'ArrowRight':
+                moveMissileRight();
+                break;
+            case 'ArrowLeft':
+                moveMissileLeft();
+                break;
+            case ' ' :
+                if (!launchedMissile) { //para que no puedas darle muchas veces a la barra espaciadora y el misil empiece a ir rápido sin parar
+                    launchedMissile = true;
+                    pid = setInterval(launch, interval);
+                }
+                break;
+        }
+    }
+
+    window.onload = function () {
+        //No es la mejor manera de hacerlo, es mejor que la referencia esté cada vez que se use
+        themissile = document.getElementById('missile');
+        theufo = document.getElementById('ufo');
+        document.onkeydown = keyboardController;
+        // prepare keyboardController to be executed when a key is hited on the document
+        UFOlaunch();
+    }
+
+</script>
+<!--// Si quieres cambiar los valores de estilo tienes que escribirlos aquí por que a priori no se pueden cambiar si-->
+<!--//están definidos en otro documento de CSS o arriba en el tag de style-->
+<img id='missile' src='imgs/missile.png' style="left:300px;bottom:10px;height:70px;width:40px;z-index: 10"/>
+<img id='ufo' src="imgs/ufo.png" style="left:0px;bottom:550px;width:60px"/>
+<div id='points' style="z-index: 0">0</div>
+
+</body>
+</html>
