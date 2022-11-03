@@ -1,0 +1,46 @@
+body {
+  background-image: url("assets/stars.jpg");
+  overflow: hidden;
+}
+
+* {
+  font-family: "Orbitron", sans-serif;
+}
+
+nav #logreg {
+  position: absolute;
+  right: 0;
+  text-align: center;
+}
+
+#missile {
+  position: absolute;
+  left: 300px;
+  bottom: 10px;
+  height: 70px;
+  width: 40px;
+  z-index: 10;
+}
+
+#ufo {
+  position: absolute;
+  left: 0px;
+  width: 80px;
+  height: 80px;
+  bottom: 550px;
+}
+
+#points {
+  position: absolute;
+  bottom: 10px;
+  right: 30px;
+  width: 150px;
+  height: 50px;
+  background-color: yellow;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  font-size: 18pt;
+  padding-top: 20px;
+  z-index: 0;
+}

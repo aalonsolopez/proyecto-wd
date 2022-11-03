@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="assets/ufoNavIcon.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="game.css" type="text/css"/>
-    <link rel="icon" type="image/x-icon" href="assets/ufoNavIcon.png" />
-    <title>Game - UFO Game</title>
+    <title>Register - UFO Game</title>
+    <link rel="stylesheet" href="preferences.css" type="text/css" />
   </head>
   <body>
+    <script src="preferences.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
       crossorigin="anonymous"
     ></script>
-    <script type="text/javascript" src="game.js"></script>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
@@ -53,17 +53,28 @@
         </ul>
       </div>
     </nav>
-    <img
-      id="missile"
-      src="assets/missile.png"
-      style="left: 300px; bottom: 10px; height: 70px; width: 40px; z-index: 10"
-    />
-    <img
-      id="ufo"
-      src="assets/ufoNavIcon.png"
-      style="left: 0px; bottom: 550px; width: 100px; height: 100px"
-    />
-    <div id="timer" style="position: absolute; top: 10px; left: 10px; color: yellow;">0</div>
-    <div id="points" style="z-index: 0">0</div>
+    <div id="preferences">
+      <h1 id="preferences-title">Preferences</h1>
+      <p>Adjust your game settings: the time and the number of enemy UFOs</p>
+      <div class="form-floating">
+        <input
+          type="number"
+          class="form-control"
+          id="ufos-input"
+          placeholder="1"
+        />
+        <label for="ufos-input">Number of UFOs</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="number"
+          class="form-control"
+          id="time-input"
+          placeholder="60"
+        />
+        <label for="time-input">Game time</label>
+      </div>
+      <button type="button" class="btn btn-primary" id="preferences-button">Set Preferences</button>
+    </div>
   </body>
 </html>
