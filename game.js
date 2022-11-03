@@ -122,14 +122,16 @@ function keyboardController(theEvent) {
 }
 
 function timerStart() {
-    var timeleft = localStorage.getItem("time");
-    var downloadTimer = setInterval(function () {
-        document.getElementById("countdown").innerText = time--;
-        if (timeleft <= 0) {
-            clearInterval(downloadTimer);
-            gameOver = true;
-        }
-    }, 1000);   
+  let timeLeft = localStorage.getItem('time');
+  let x = setInterval(() => {
+    document.getElementById('timer').innerHTML = timeLeft--;
+    if(timeLeft < 0) {
+      document.getElementById('timer').innerHTML = 'Game Over';
+      gameOver = true;
+      clearInterval(x);
+      clearInterval(pid);
+    }
+  }, 1000);
 }
 
 
@@ -140,7 +142,12 @@ window.onload = function () {
   theufo = document.getElementById("ufo");
   document.onkeydown = keyboardController;
   timerStart();
+  UFOlaunch();
+};
+
+window.onchange = function () {
   if (!gameOver) {
     UFOlaunch();
   }
 };
+
