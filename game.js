@@ -3,9 +3,8 @@ var pid,
   themissile,
   theufo,
   ufo_hstep = 5,
-  gameOver = false,
-  time = localStorage.getItem('time') || 0,
   launchedMissile = false;
+  gameover = false;
 
 function UFOlaunch() {
   //Supress comment signs in next line
@@ -14,12 +13,13 @@ function UFOlaunch() {
 
 function MoveUFO() {
   var Rlimit = window.innerWidth;
-
+  //Program here UFO movement
   var hpos_ufo = parseInt(theufo.style.left),
     width_ufo = parseInt(theufo.style.width);
+  //let ufo_hstep = 5; No se hace aquí si no con una variable global por que si no cada vez que se llame a la función volvería a ser este valor
 
   if (hpos_ufo + width_ufo + 8 > Rlimit || hpos_ufo < 0) {
-    ufo_hstep = ufo_hstep * -1;
+    ufo_hstep = ufo_hstep * -1; //Cambia el signo para que cambie de dirección cuando llega al borde
   }
 
   hpos_ufo = hpos_ufo + ufo_hstep;
@@ -49,7 +49,7 @@ function checkforaHit() {
 }
 
 function launch() {
-  var uLimit = window.innerHeight - 56,
+  var uLimit = window.innerHeight,
     vpos_m,
     vstep = 5;
   vpos_m = parseInt(themissile.style.bottom);
@@ -63,9 +63,17 @@ function launch() {
     setTimeout(() => {
       theufo.src = "imgs/ufo.png";
     }, 10000);
+    //stop the missile
+    //update punctuation in the panel
+    //Show the image for the hit
   }
+  //if vpos_m is higher than upperlimit
+  //stop the missile
+  // else
+  // do the missile to move vstep pixels up
   if (vpos_m > uLimit) {
     clearInterval(pid);
+    document.getElementById("points").innerHTML = score - 25; //Para que pare de moverse cuando vuelve a la parte de abajo
     launchedMissile = false;
     vpos_m = 0;
   }
@@ -78,10 +86,9 @@ function moveMissileRight() {
   var rLimit = window.innerWidth,
     hpos_m,
     misWidth,
-    hstep = 5; //hpos_m = posicion horizontal del misil
-  // alert ("hey, I'm working"); //prueba para ver que funciona
+    hstep = 5;
   hpos_m = parseInt(themissile.style.left);
-  misWidth = parseInt(themissile.style.width); //Tienes que asignarle el ancho abajo para que lo pueda pillar aquí
+  misWidth = parseInt(themissile.style.width);
   if (hpos_m + misWidth + 8 < rLimit) {
     //8 es el margen que le pone el navegador por defecto y si no lo pones sale scroll horizontal
     hpos_m = hpos_m + hstep;
@@ -102,14 +109,19 @@ function moveMissileLeft() {
 }
 
 function keyboardController(theEvent) {
+  //No vale para Internet Explorer
   let interval = 15;
   let code = theEvent.key; //Coge la tecla que estás pulsando
   switch (code) {
     case "ArrowRight":
-      moveMissileRight();
+      if (launchedMissile == false) {
+        moveMissileRight();
+      }
       break;
     case "ArrowLeft":
-      moveMissileLeft();
+      if (launchedMissile == false) {
+        moveMissileLeft();
+      }
       break;
     case " ":
       if (!launchedMissile) {
@@ -121,26 +133,34 @@ function keyboardController(theEvent) {
   }
 }
 
-function timerStart() {
-    var timeleft = localStorage.getItem("time");
-    var downloadTimer = setInterval(function () {
-        document.getElementById("countdown").innerText = time--;
-        if (timeleft <= 0) {
-            clearInterval(downloadTimer);
-            gameOver = true;
-        }
-    }, 1000);   
+function timer() {
+  let timeLeft = localStorage.getItem("time");
+  var myModal = new bootstrap.Modal(document.getElementById("myModal"), {
+    keyboard: false,
+  });
+  let x = setInterval(() => {
+    document.getElementById("timer").innerHTML = timeLeft--;
+    if (timeLeft <= 0) {
+      clearInterval(x);
+      myModal.show();
+      setInterval(() => {
+        clearInterval(pid);
+      }, 5);
+    }
+  }, 1000);  
 }
 
+function sendScore() {
+  window.location.reload();
+}
 
 window.onload = function () {
   //No es la mejor manera de hacerlo, es mejor que la referencia esté cada vez que se use
-  document.getElementById("timer").innerText = localStorage.getItem("time");
   themissile = document.getElementById("missile");
   theufo = document.getElementById("ufo");
-  document.onkeydown = keyboardController;
-  timerStart();
-  if (!gameOver) {
+  timer();
+  if (!gameover) {
+    document.onkeydown = keyboardController;
     UFOlaunch();
   }
 };
